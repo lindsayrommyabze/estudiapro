@@ -1,206 +1,464 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EstudiaPro | Plataforma de Cursos</title>
+  <style>
+    :root{
+      --azul-principal:#1e40af;
+      --azul-oscuro:#1e3a8a;
+      --azul-claro:#e0e7ff;
+      --gris-fondo:#f5f7fb;
+      --gris-texto:#374151;
+      --blanco:#ffffff;
+      --verde-whatsapp:#25D366;
+      --sombra:0 10px 25px rgba(0,0,0,0.08);
+    }
 
-<title>EstudiaPro | Plataforma de Cursos</title>
+    *{
+      box-sizing:border-box;
+    }
 
-<style>
+    html{
+      scroll-behavior:smooth;
+    }
 
-body{
-font-family:Arial;
-margin:0;
-background:#f4f6f8;
-color:#1f2937;
-}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      margin:0;
+      background:var(--gris-fondo);
+      color:var(--gris-texto);
+    }
 
-header{
-background:#1d4ed8;
-color:white;
-padding:20px;
-}
+    header{
+      background:linear-gradient(135deg,var(--azul-oscuro),var(--azul-principal));
+      color:var(--blanco);
+      padding:18px 0;
+      box-shadow:0 4px 14px rgba(0,0,0,0.12);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
 
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-}
+    .container{
+      max-width:1150px;
+      margin:auto;
+      padding:0 20px;
+    }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:28px;
-font-weight:bold;
-}
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
 
-.hero{
-padding:60px 0;
-background:linear-gradient(#eef2ff,#ffffff);
-}
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:0.5px;
+    }
 
-.btn{
-background:#1d4ed8;
-color:white;
-padding:12px 18px;
-border-radius:8px;
-text-decoration:none;
-margin-right:10px;
-display:inline-block;
-}
+    .logo svg{
+      flex-shrink:0;
+    }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
+    nav{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
 
-.card{
-background:white;
-padding:20px;
-border-radius:12px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-}
+    nav a{
+      color:var(--blanco);
+      text-decoration:none;
+      font-size:14px;
+      font-weight:600;
+      opacity:0.95;
+    }
 
-footer{
-background:#0f172a;
-color:white;
-text-align:center;
-padding:30px;
-margin-top:40px;
-}
+    nav a:hover{
+      opacity:1;
+      text-decoration:underline;
+    }
 
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:14px 18px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-}
+    .hero{
+      padding:60px 0;
+      background:linear-gradient(180deg,#eef2ff 0%, #ffffff 100%);
+    }
 
-</style>
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:30px;
+      align-items:center;
+    }
 
+    .hero h1{
+      font-size:46px;
+      line-height:1.12;
+      margin:0 0 16px;
+      color:#111827;
+    }
+
+    .hero p{
+      font-size:18px;
+      line-height:1.7;
+      margin:0 0 24px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:28px;
+    }
+
+    .btn{
+      background:var(--azul-principal);
+      color:var(--blanco);
+      padding:13px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      display:inline-block;
+      box-shadow:0 6px 18px rgba(30,64,175,0.20);
+      transition:0.25s;
+    }
+
+    .btn:hover{
+      background:var(--azul-oscuro);
+      transform:translateY(-2px);
+    }
+
+    .btn-outline{
+      background:var(--blanco);
+      color:var(--azul-principal);
+      border:1px solid #c7d2fe;
+      padding:13px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      display:inline-block;
+      transition:0.25s;
+    }
+
+    .btn-outline:hover{
+      background:#eef2ff;
+      transform:translateY(-2px);
+    }
+
+    .hero-card{
+      background:var(--blanco);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--sombra);
+    }
+
+    .hero-card img{
+      width:100%;
+      height:360px;
+      object-fit:cover;
+      border-radius:14px;
+      display:block;
+    }
+
+    .section{
+      padding:55px 0;
+    }
+
+    .section h2{
+      font-size:34px;
+      margin:0 0 12px;
+      color:#111827;
+    }
+
+    .section-intro{
+      font-size:17px;
+      line-height:1.7;
+      margin:0 0 24px;
+      max-width:760px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:22px;
+    }
+
+    .card{
+      background:var(--blanco);
+      padding:20px;
+      border-radius:16px;
+      box-shadow:var(--sombra);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:14px;
+      display:block;
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      color:#111827;
+      font-size:21px;
+    }
+
+    .card p{
+      margin:0;
+      line-height:1.7;
+      font-size:15px;
+    }
+
+    .highlight-box{
+      background:linear-gradient(135deg,var(--azul-oscuro),var(--azul-principal));
+      color:var(--blanco);
+      padding:28px;
+      border-radius:18px;
+      box-shadow:var(--sombra);
+    }
+
+    .highlight-box h2{
+      color:var(--blanco);
+    }
+
+    .contact-box{
+      background:var(--blanco);
+      border-radius:16px;
+      padding:24px;
+      box-shadow:var(--sombra);
+    }
+
+    .contact-box p{
+      margin:10px 0;
+      font-size:16px;
+    }
+
+    .footer{
+      background:#0f172a;
+      color:var(--blanco);
+      text-align:center;
+      padding:30px 20px;
+      margin-top:30px;
+    }
+
+    .footer p{
+      margin:8px 0;
+    }
+
+    .whatsapp{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      background:var(--verde-whatsapp);
+      color:var(--blanco);
+      padding:14px 18px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 10px 24px rgba(0,0,0,0.18);
+      z-index:60;
+    }
+
+    .badge{
+      display:inline-block;
+      background:var(--azul-claro);
+      color:var(--azul-oscuro);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+
+    @media (max-width:900px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:36px;
+      }
+
+      nav{
+        display:none;
+      }
+    }
+
+    @media (max-width:520px){
+      .hero h1{
+        font-size:30px;
+      }
+
+      .section h2{
+        font-size:28px;
+      }
+
+      .logo{
+        font-size:24px;
+      }
+
+      .whatsapp{
+        right:12px;
+        bottom:12px;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
+  <header>
+    <div class="container topbar">
+      <div class="logo">
 
-<div class="container">
+        <svg width="48" height="48" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="gradEstudiaPro" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#1e40af"/>
+              <stop offset="100%" stop-color="#2563eb"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="url(#gradEstudiaPro)"/>
+          <path d="M30 62 L50 26 L70 62" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="36" y="58" width="28" height="16" rx="3" fill="white"/>
+        </svg>
 
-<div class="logo">
+        <span>EstudiaPro</span>
+      </div>
 
-<svg width="40" height="40" viewBox="0 0 100 100">
-<circle cx="50" cy="50" r="45" fill="#1d4ed8"/>
-<path d="M30 60 L50 25 L70 60" stroke="white" stroke-width="8" fill="none"/>
-</svg>
+      <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#destacados">Cursos destacados</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
 
-EstudiaPro
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <span class="badge">Plataforma educativa virtual</span>
+        <h1>Aprende, avanza y certifícate con EstudiaPro</h1>
+        <p>
+          Plataforma profesional de capacitación con cursos virtuales, materiales digitales,
+          exámenes, seguimiento académico y certificación para áreas públicas, privadas y TICs.
+        </p>
 
-</div>
+        <div class="hero-actions">
+          <a class="btn" href="http://estudiapro.online/catalogo.html">Ver catálogo</a>
+          <a class="btn-outline" href="http://estudiapro.online/portal.html">Ingresar al portal</a>
+        </div>
 
-</div>
+        <p style="font-size:14px; color:#64748b; margin:0;">
+          Materiales, videos, certificados y exámenes conectados con tu ecosistema de aprendizaje.
+        </p>
+      </div>
 
-</header>
+      <div class="hero-card">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Estudiantes aprendiendo en línea">
+      </div>
+    </div>
+  </section>
 
-<section class="hero">
+  <section class="section" id="beneficios">
+    <div class="container">
+      <h2>Beneficios de EstudiaPro</h2>
+      <p class="section-intro">
+        Diseñada para una experiencia educativa clara, flexible y profesional, con acceso sencillo a materiales,
+        acompañamiento académico y recursos para mejorar tu desarrollo.
+      </p>
 
-<div class="container">
+      <div class="grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80" alt="Aprendizaje flexible">
+          <h3>Aprendizaje flexible</h3>
+          <p>Estudia desde cualquier lugar con acceso virtual a contenidos y actividades.</p>
+        </div>
 
-<h1>Bienvenido a EstudiaPro</h1>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80" alt="Materiales digitales">
+          <h3>Materiales digitales</h3>
+          <p>PDF, videos, guías y recursos académicos organizados para un estudio eficiente.</p>
+        </div>
 
-<p>
-Plataforma virtual de capacitación profesional con cursos,
-materiales digitales, exámenes y certificación.
-</p>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80" alt="Certificación">
+          <h3>Certificación</h3>
+          <p>Obtén tu certificado al aprobar y fortalece tu perfil profesional.</p>
+        </div>
 
-<br>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1000&q=80" alt="Seguimiento académico">
+          <h3>Seguimiento académico</h3>
+          <p>Consulta notas, progreso, exámenes y evidencias dentro del portal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<a class="btn" href="http://estudiapro.online/catalogo.html">
-Ver catálogo
-</a>
+  <section class="section" id="destacados">
+    <div class="container">
+      <div class="highlight-box">
+        <h2>Cursos destacados</h2>
+        <p class="section-intro" style="color:#dbeafe; max-width:100%;">
+          Explora algunas de las áreas más solicitadas en EstudiaPro, con enfoque práctico y contenidos aplicables.
+        </p>
 
-<a class="btn" href="http://estudiapro.online/portal.html">
-Ingresar al portal
-</a>
+        <div class="grid">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80" alt="Excel avanzado">
+            <h3>Excel Avanzado</h3>
+            <p>Tablas dinámicas, automatización, análisis de datos y reportes profesionales.</p>
+          </div>
 
-</div>
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=1000&q=80" alt="Power BI">
+            <h3>Power BI</h3>
+            <p>Visualización de datos, dashboards interactivos y análisis para la toma de decisiones.</p>
+          </div>
 
-</section>
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1000&q=80" alt="Gestión Pública">
+            <h3>Gestión Pública</h3>
+            <p>Fundamentos, herramientas y procesos para el desarrollo profesional en el sector público.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section>
+  <section class="section" id="contacto">
+    <div class="container">
+      <div class="contact-box">
+        <h2>Contacto</h2>
+        <p><strong>Correo:</strong> estudiaprocontacto@gmail.com</p>
+        <p><strong>WhatsApp:</strong> 907389688</p>
+        <p><strong>Dominio:</strong> http://estudiapro.online</p>
+      </div>
+    </div>
+  </section>
 
-<div class="container">
+  <footer class="footer">
+    <p>© 2026 EstudiaPro</p>
+    <p>Plataforma educativa virtual con enfoque profesional</p>
+  </footer>
 
-<h2>Beneficios de EstudiaPro</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Aprendizaje flexible</h3>
-<p>Cursos virtuales disponibles desde cualquier lugar.</p>
-</div>
-
-<div class="card">
-<h3>Materiales digitales</h3>
-<p>PDF, videos y recursos desde Google Drive.</p>
-</div>
-
-<div class="card">
-<h3>Certificación</h3>
-<p>Obtén tu certificado automático al aprobar.</p>
-</div>
-
-<div class="card">
-<h3>Seguimiento académico</h3>
-<p>Notas, progreso y evaluaciones online.</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="container">
-
-<h2>Contacto</h2>
-
-<p>
-Correo: estudiaprocontacto@gmail.com
-</p>
-
-<p>
-WhatsApp: 907389688
-</p>
-
-</div>
-
-</section>
-
-<footer>
-
-© 2026 EstudiaPro  
-Plataforma educativa virtual
-
-</footer>
-
-<a class="whatsapp"
-href="https://wa.me/51907389688"
-target="_blank">
-
-WhatsApp
-
-</a>
+  <a class="whatsapp" href="https://wa.me/51907389688" target="_blank">WhatsApp</a>
 
 </body>
-
 </html>
